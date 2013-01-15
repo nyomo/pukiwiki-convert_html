@@ -11,11 +11,8 @@
 
 function convert_html($lines)
 {
-	global $vars, $digest;
+	global $vars;
 	static $contents_id = 0;
-
-	// Set digest
-	$digest = md5(join('', get_source($vars['page'])));
 
 	if (! is_array($lines)) $lines = explode("\n", $lines);
 
