@@ -8,49 +8,6 @@
 //
 // General functions
 
-function is_interwiki($str)
-{
-	global $InterWikiName;
-	return preg_match('/^' . $InterWikiName . '$/', $str);
-}
-
-function is_pagename($str)
-{
-	global $BracketName;
-
-	$is_pagename = (! is_interwiki($str) &&
-		  preg_match('/^(?!\/)' . $BracketName . '$(?<!\/$)/', $str) &&
-		! preg_match('#(^|/)\.{1,2}(/|$)#', $str));
-
-	if (defined('SOURCE_ENCODING')) {
-		switch(SOURCE_ENCODING){
-		case 'UTF-8': $pattern =
-			'/^(?:[\x00-\x7F]|(?:[\xC0-\xDF][\x80-\xBF])|(?:[\xE0-\xEF][\x80-\xBF][\x80-\xBF]))+$/';
-			break;
-		case 'EUC-JP': $pattern =
-			'/^(?:[\x00-\x7F]|(?:[\x8E\xA1-\xFE][\xA1-\xFE])|(?:\x8F[\xA1-\xFE][\xA1-\xFE]))+$/';
-			break;
-		}
-		if (isset($pattern) && $pattern != '')
-			$is_pagename = ($is_pagename && preg_match($pattern, $str));
-	}
-
-	return $is_pagename;
-}
-
-function is_url($str, $only_http = FALSE)
-{
-	$scheme = $only_http ? 'https?' : 'https?|ftp|news';
-	return preg_match('/^(' . $scheme . ')(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]*)$/', $str);
-}
-
-// If the page exists
-function is_page($page, $clearcache = FALSE)
-{
-	if ($clearcache) clearstatcache();
-	return file_exists(get_filename($page));
-}
-
 function is_editable($page)
 {
 	global $cantedit;
@@ -293,14 +250,6 @@ function arg_check($str)
 	return isset($vars['cmd']) && (strpos($vars['cmd'], $str) === 0);
 }
 
-// Encode page-name
-function encode($key)
-{
-	return ($key == '') ? '' : strtoupper(bin2hex($key));
-	// Equal to strtoupper(join('', unpack('H*0', $key)));
-	// But PHP 4.3.10 says 'Warning: unpack(): Type H: outside of string in ...'
-}
-
 // Decode page name
 function decode($key)
 {
@@ -314,17 +263,6 @@ function hex2bin($hex_string)
 	// (string)   : Always treat as string (not int etc). See BugTrack2/31
 	return preg_match('/^[0-9a-f]+$/i', $hex_string) ?
 		pack('H*', (string)$hex_string) : $hex_string;
-}
-
-// Remove [[ ]] (brackets)
-function strip_bracket($str)
-{
-	$match = array();
-	if (preg_match('/^\[\[(.*)\]\]$/', $str, $match)) {
-		return $match[1];
-	} else {
-		return $str;
-	}
 }
 
 // Create list of pages
