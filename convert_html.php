@@ -16,7 +16,7 @@ function convert_html($lines)
 
 	if (! is_array($lines)) $lines = explode("\n", $lines);
 
-	$body = & new Body(++$contents_id);
+	$body = new Body(++$contents_id);
 	$body->parse($lines);
 
 	return $body->toString();
@@ -171,7 +171,7 @@ class Inline extends Element
 			$text : make_link($text));
 	}
 
-	function & insert(& $obj)
+	function insert($obj)
 	{
 		$this->elements[] = $obj->elements[0];
 		return $this;
