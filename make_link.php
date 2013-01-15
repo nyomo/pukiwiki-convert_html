@@ -550,7 +550,7 @@ class Link_bracketname extends Link
 
 	function get_pattern()
 	{
-		global $WikiName, $BracketName;
+		global $BracketName;
 
 		$s2 = $this->start + 2;
 		return <<<EOD
@@ -558,7 +558,7 @@ class Link_bracketname extends Link
 (?:((?:(?!\]\]).)+)>)?   # (1) Alias
 (\[\[)?                  # (2) Open bracket
 (                        # (3) PageName
- (?:$WikiName)
+ (?:WIKI_NAME)
  |
  (?:$BracketName)
 )?
@@ -575,12 +575,10 @@ EOD;
 
 	function set($arr, $page)
 	{
-		global $WikiName;
-
 		list(, $alias, , $name, $this->anchor) = $this->splice($arr);
 		if ($name == '' && $this->anchor == '') return FALSE;
 
-		if ($name == '' || ! preg_match('/^' . $WikiName . '$/', $name)) {
+		if ($name == '' || ! preg_match('/^' . WIKI_NAME . '$/', $name)) {
 			if ($alias == '') $alias = $name . $this->anchor;
 			if ($name != '') {
 				$name = get_fullname($name, $page);
@@ -612,9 +610,9 @@ class Link_wikiname extends Link
 
 	function get_pattern()
 	{
-		global $WikiName, $nowikiname;
+		global $nowikiname;
 
-		return $nowikiname ? FALSE : '(' . $WikiName . ')';
+		return $nowikiname ? FALSE : '(' . WIKI_NAME . ')';
 	}
 
 	function get_count()
@@ -673,8 +671,6 @@ class Link_autolink extends Link
 
 	function set($arr, $page)
 	{
-		global $WikiName;
-
 		list($name) = $this->splice($arr);
 
 		// Ignore pages listed, or Expire ones not found
@@ -793,7 +789,7 @@ function get_fullname($name, $refer)
 // Render an InterWiki into a URL
 function get_interwiki_url($name, $param)
 {
-	global $WikiName, $interwiki;
+	global $interwiki;
 	static $interwikinames;
 	static $encode_aliases = array('sjis'=>'SJIS', 'euc'=>'EUC-JP', 'utf8'=>'UTF-8');
 
@@ -823,7 +819,7 @@ function get_interwiki_url($name, $param)
 		break;
 
 	case 'yw': // YukiWiki
-		if (! preg_match('/' . $WikiName . '/', $param))
+		if (! preg_match('/' . WIKI_NAME . '/', $param))
 			$param = '[[' . mb_convert_encoding($param, 'SJIS', SOURCE_ENCODING) . ']]';
 		break;
 
