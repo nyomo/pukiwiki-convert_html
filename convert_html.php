@@ -928,7 +928,7 @@ class Body extends Element
 		$this->contents_last = $this->contents_last->add(new Contents_UList($text, $level, $id));
 
 		// Add heding
-		return array($text . $anchor, $this->count > 1 ? "\n" . $top : '', $autoid);
+	  return array($text . $anchor, $this->count > 1 ? "\n" . $top : '', $autoid);
 	}
 
 	function  insert($obj)

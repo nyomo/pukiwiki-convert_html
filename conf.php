@@ -10,8 +10,8 @@ $_symbol_noexists = '?';
 $line_break = TRUE;
 //wikiname(大文字始まりの英単語が二つ以上続いた単語)に対する自動リンクを有効にするか
 $nowikiname = FALSE;
-//トップページへのリンク文字列
-$top = "TopPage";
+//画面上部へ戻るリンク
+$top = '<div class="jumpmenu"><a href="#toolmenu">&uarr;</a></div>';
 //defaultは0でkeitaiは1だった
 //FALSEだとget_pg_passage呼ぶからTRUEにしとく
 $link_compact = TRUE;
