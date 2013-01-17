@@ -49,13 +49,11 @@ function make_heading(& $str, $strip = TRUE)
 // Remove all HTML tags(or just anchor tags), and WikiName-speific decorations
 function strip_htmltag($str, $all = TRUE)
 {
-	global $_symbol_noexists;
 	static $noexists_pattern;
 
 	if (! isset($noexists_pattern))
 		$noexists_pattern = '#<span class="noexists">([^<]*)<a[^>]+>' .
-			preg_quote($_symbol_noexists, '#') . '</a></span>#';
-
+			preg_quote(SYMBOL_NOEXISTS, '#') . '</a></span>#';
 	// Strip Dagnling-Link decoration (Tags and "$_symbol_noexists")
 	$str = preg_replace($noexists_pattern, '$1', $str);
 

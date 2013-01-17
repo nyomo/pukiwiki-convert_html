@@ -7,9 +7,10 @@ $defaultpage  = 'FrontPage';
 //autolinkを有効にする場合にはTRUE
 $autolink = TRUE;
 //未作成ページの場合リンクが設定される文字
-$_symbol_noexists = '?';
+//$_symbol_noexists = '?';
+define('SYMBOL_NOEXISTS','?');
 //ソーステキストの改行を有効にする場合にはTRUE
-$line_break = TRUE;
+define('LINE_BREAK',TRUE);
 //wikiname(大文字始まりの英単語が二つ以上続いた単語)に対する自動リンクを有効にするか
 $nowikiname = FALSE;
 //画面上部へ戻るリンク

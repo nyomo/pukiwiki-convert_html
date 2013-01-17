@@ -702,7 +702,7 @@ class Link_autolink_a extends Link_autolink
 // Make hyperlink for the page
 function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolink = FALSE)
 {
-	global $script, $vars, $link_compact, $related, $_symbol_noexists;
+	global $script, $vars, $link_compact, $related;
 
 	$s_page = htmlspecialchars(strip_bracket($page));
 	$s_alias = ($alias == '') ? $s_page : $alias;
@@ -739,8 +739,7 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 
 		$retval = $s_alias . '<a href="' .
 			$script . '?cmd=edit&amp;page=' . $r_page . $r_refer . '">' .
-			$_symbol_noexists . '</a>';
-
+			SYMBOL_NOEXISTS . '</a>';
 		if ($link_compact) {
 			return $retval;
 		} else {
