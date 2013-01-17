@@ -1,4 +1,5 @@
 <?php
+//convert_htmlに必要なグローバル変数と定数
 //convert_html用の設定
 //ページ名を指定しない時に表示されるページの名前
 $defaultpage  = 'FrontPage';
@@ -16,15 +17,19 @@ $top = '<div class="jumpmenu"><a href="#toolmenu">&uarr;</a></div>';
 //FALSEだとget_pg_passage呼ぶからTRUEにしとく
 $link_compact = TRUE;
 
+// PKWK_READONLY - Prohibits editing and maintain via WWW
+//   NOTE: Counter-related functions will work now (counter, attach count, etc)
+if (! defined('PKWK_READONLY'))
+	define('PKWK_READONLY', FALSE); // 0 or 1
 
-//convert_htmlに必要なグローバル変数
+//変更の必要がなさそうな物
 $preformat_ltrim = TRUE;
 $interwiki    = 'InterWikiName';
 $hr = '<hr class="full_hr">';
-define('WIKI_NAME','(?:[A-Z][a-z]+){2,}(?!\w)');
 $_symbol_anchor   = '&dagger;';
 $NotePattern = '/\(\(((?:(?>(?:(?!\(\()(?!\)\)(?:[^\)]|$)).)+)|(?R))*)\)\)/ex';
 $BracketName='(?!\s):?[^\r\n\t\f\[\]<>#&":]+:?(?<!\s)';
+$_list_pad_str = ' class="list%d"';
 $line_rules = array(
   'COLOR\(([^\(\)]*)\){([^}]*)}'  => '<span style="color:$1">$2</span>',
   'SIZE\(([^\(\)]*)\){([^}]*)}' => '<span style="font-size:$1px">$2</span>',
@@ -40,13 +45,8 @@ $line_rules = array(
 $foot_explain = array();	// Footnotes
 $related      = array();	// Related pages
 $head_tags    = array();	// XHTML tags in <head></head>
-$_list_pad_str = ' class="list%d"';
 
-// PKWK_READONLY - Prohibits editing and maintain via WWW
-//   NOTE: Counter-related functions will work now (counter, attach count, etc)
-if (! defined('PKWK_READONLY'))
-	define('PKWK_READONLY', FALSE); // 0 or 1
-
+define('WIKI_NAME','(?:[A-Z][a-z]+){2,}(?!\w)');
 // 脚注のアンカーに埋め込む本文の最大長
 define('PKWK_FOOTNOTE_TITLE_MAX', 16); // Characters
 
