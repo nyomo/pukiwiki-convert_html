@@ -12,7 +12,6 @@
 function is_page($page, $clearcache = FALSE)
 {
 	if ($clearcache) clearstatcache();
-  return TRUE;
 	return file_exists(get_filename($page));
 }
 
