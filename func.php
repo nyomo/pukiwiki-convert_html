@@ -25,8 +25,7 @@ function encode($key)
 
 function is_pagename($str)
 {
-	global $BracketName;
-
+	$BracketName = BRACKET_NAME;
 	$is_pagename = (! is_interwiki($str) &&
 		  preg_match('/^(?!\/)' . $BracketName . '$(?<!\/$)/', $str) &&
 		! preg_match('#(^|/)\.{1,2}(/|$)#', $str));

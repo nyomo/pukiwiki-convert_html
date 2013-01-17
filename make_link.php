@@ -550,7 +550,7 @@ class Link_bracketname extends Link
 
 	function get_pattern()
 	{
-		global $BracketName;
+		$BracketName = BRACKET_NAME;
 
 		$s2 = $this->start + 2;
 		return <<<EOD
@@ -610,9 +610,7 @@ class Link_wikiname extends Link
 
 	function get_pattern()
 	{
-		global $nowikiname;
-
-		return $nowikiname ? FALSE : '(' . WIKI_NAME . ')';
+		return NO_WIKINAME ? FALSE : '(' . WIKI_NAME . ')';
 	}
 
 	function get_count()
@@ -646,11 +644,9 @@ class Link_autolink extends Link
 
 	function Link_autolink($start)
 	{
-		global $autolink;
-
 		parent::Link($start);
 
-		if (! $autolink || ! file_exists(CACHE_DIR . 'autolink.dat'))
+		if (! AUTOLINK || ! file_exists(CACHE_DIR . 'autolink.dat'))
 			return;
 
 		@list($auto, $auto_a, $forceignorepages) = file(CACHE_DIR . 'autolink.dat');
@@ -702,7 +698,7 @@ class Link_autolink_a extends Link_autolink
 // Make hyperlink for the page
 function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolink = FALSE)
 {
-	global $script, $vars, $link_compact, $related;
+	global $script, $vars, $related;
 
 	$s_page = htmlspecialchars(strip_bracket($page));
 	$s_alias = ($alias == '') ? $s_page : $alias;
@@ -712,12 +708,13 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 	$r_page  = rawurlencode($page);
 	$r_refer = ($refer == '') ? '' : '&amp;refer=' . rawurlencode($refer);
 
+/*
 	if (! isset($related[$page]) && $page != $vars['page'] && is_page($page))
 		$related[$page] = get_filetime($page);
-
+*/
 	if ($isautolink || is_page($page)) {
 		// Hyperlink to the page
-		if ($link_compact) {
+		if (LINK_COMPACT) {
 			$title   = '';
 		} else {
 			$title   = ' title="' . $s_page . get_pg_passage($page, FALSE) . '"';
@@ -740,7 +737,7 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 		$retval = $s_alias . '<a href="' .
 			$script . '?cmd=edit&amp;page=' . $r_page . $r_refer . '">' .
 			SYMBOL_NOEXISTS . '</a>';
-		if ($link_compact) {
+		if (LINK_COMPACT) {
 			return $retval;
 		} else {
 			return '<span class="noexists">' . $retval . '</span>';
@@ -788,13 +785,12 @@ function get_fullname($name, $refer)
 // Render an InterWiki into a URL
 function get_interwiki_url($name, $param)
 {
-	global $interwiki;
 	static $interwikinames;
 	static $encode_aliases = array('sjis'=>'SJIS', 'euc'=>'EUC-JP', 'utf8'=>'UTF-8');
 
 	if (! isset($interwikinames)) {
 		$interwikinames = $matches = array();
-		foreach (get_source($interwiki) as $line)
+		foreach (get_source(INTERWIKI) as $line)
 			if (preg_match('/\[(' . '(?:(?:https?|ftp|news):\/\/|\.\.?\/)' .
 			    '[!~*\'();\/?:\@&=+\$,%#\w.-]*)\s([^\]]+)\]\s?([^\s]*)/',
 			    $line, $matches))

@@ -27,8 +27,6 @@ function make_line_rules($str)
 // Make heading string (remove heading-related decorations from Wiki text)
 function make_heading(& $str, $strip = TRUE)
 {
-	global $NotePattern;
-
 	// Cut fixed-heading anchors
 	$id = '';
 	$matches = array();
@@ -41,7 +39,7 @@ function make_heading(& $str, $strip = TRUE)
 
 	// Cut footnotes and tags
 	if ($strip === TRUE)
-		$str = strip_htmltag(make_link(preg_replace($NotePattern, '', $str)));
+		$str = strip_htmltag(make_link(preg_replace(NOTE_PATTERN, '', $str)));
 
 	return $id;
 }

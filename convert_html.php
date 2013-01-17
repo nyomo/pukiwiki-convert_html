@@ -283,8 +283,7 @@ class HRule extends Element
 
 	function toString()
 	{
-		global $hr;
-		return $hr;
+		return HR;
 	}
 }
 
@@ -327,8 +326,6 @@ class ListContainer extends Element
 
 	function setParent($parent)
 	{
-		global $_list_pad_str;
-
 		parent::setParent($parent);
 
 		$step = $this->level;
@@ -339,7 +336,7 @@ class ListContainer extends Element
 		if ($step == $this->level)
 			$margin += $this->left_margin;
 
-		$this->style = sprintf($_list_pad_str, $this->level, $margin, $margin);
+		$this->style = sprintf(LIST_PAD_STR, $this->level, $margin, $margin);
 	}
 
 	function insert($obj)
@@ -729,10 +726,9 @@ class Pre extends Element
 {
 	function Pre($root, $text)
 	{
-		global $preformat_ltrim;
 		parent::Element();
 		$this->elements[] = htmlspecialchars(
-			(! $preformat_ltrim || $text == '' || $text{0} != ' ') ? $text : substr($text, 1));
+			(! PREFORMAT_LTRIM || $text == '' || $text{0} != ' ') ? $text : substr($text, 1));
 	}
 
 	function canContain($obj)
@@ -912,7 +908,7 @@ class Body extends Element
 
 	function getAnchor($text, $level)
 	{
-		global $top, $_symbol_anchor;
+		global $top;
 
 		// Heading id (auto-generated)
 		$autoid = 'content_' . $this->id . '_' . $this->count;
@@ -925,7 +921,7 @@ class Body extends Element
 			$id     = $autoid;
 			$anchor = '';
 		} else {
-			$anchor = ' &aname(' . $id . ',super,full){' . $_symbol_anchor . '};';
+			$anchor = ' &aname(' . $id . ',super,full){' . SYMBOL_ANCHOR . '};';
 		}
 
 		$text = ' ' . $text;
@@ -980,8 +976,6 @@ class Contents_UList extends ListContainer
 
 	function setParent($parent)
 	{
-		global $_list_pad_str;
-
 		parent::setParent($parent);
 		$step   = $this->level;
 		$margin = $this->left_margin;
@@ -990,7 +984,7 @@ class Contents_UList extends ListContainer
 			$margin = 0;
 		}
 		$margin += $this->margin * ($step == $this->level ? 1 : $step);
-		$this->style = sprintf($_list_pad_str, $this->level, $margin, $margin);
+		$this->style = sprintf(LIST_PAD_STR , $this->level, $margin, $margin);
 	}
 }
 ?>

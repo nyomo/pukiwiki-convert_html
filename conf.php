@@ -1,54 +1,32 @@
 <?php
 //convert_htmlに必要なグローバル変数と定数
 //convert_html用の設定
-if (! defined('PLUGIN_DIR')) define('PLUGIN_DIR','./plugin');
+if (! defined('PLUGIN_DIR')) 
+ define('PLUGIN_DIR','./plugin');
 //ページ名を指定しない時に表示されるページの名前
 $defaultpage  = 'FrontPage';
 //autolinkを有効にする場合にはTRUE
-$autolink = TRUE;
+if( !defined('AUTOLINK')) 
+  define('AUTOLINK',TRUE);// $autolink = TRUE;
 //未作成ページの場合リンクが設定される文字
 //$_symbol_noexists = '?';
 define('SYMBOL_NOEXISTS','?');
 //ソーステキストの改行を有効にする場合にはTRUE
 define('LINE_BREAK',TRUE);
 //wikiname(大文字始まりの英単語が二つ以上続いた単語)に対する自動リンクを有効にするか
-$nowikiname = FALSE;
+if( !defined('NO_WIKINAME')) 
+  define('NO_WIKINAME',FALSE);// $nowikiname = FALSE;
 //画面上部へ戻るリンク
 $top = '<div class="jumpmenu"><a href="#toolmenu">&uarr;</a></div>';
 //defaultは0でkeitaiは1だった
 //FALSEだとget_pg_passage呼ぶからTRUEにしとく
-$link_compact = TRUE;
+define('LINK_COMPACT',TRUE);//$link_compact = TRUE;
 
 // PKWK_READONLY - Prohibits editing and maintain via WWW
 //   NOTE: Counter-related functions will work now (counter, attach count, etc)
 if (! defined('PKWK_READONLY'))
 	define('PKWK_READONLY', FALSE); // 0 or 1
 
-//変更の必要がなさそうな物
-$preformat_ltrim = TRUE;
-$interwiki    = 'InterWikiName';
-$hr = '<hr class="full_hr">';
-$_symbol_anchor   = '&dagger;';
-$NotePattern = '/\(\(((?:(?>(?:(?!\(\()(?!\)\)(?:[^\)]|$)).)+)|(?R))*)\)\)/ex';
-$BracketName='(?!\s):?[^\r\n\t\f\[\]<>#&":]+:?(?<!\s)';
-$_list_pad_str = ' class="list%d"';
-$line_rules = array(
-  'COLOR\(([^\(\)]*)\){([^}]*)}'  => '<span style="color:$1">$2</span>',
-  'SIZE\(([^\(\)]*)\){([^}]*)}' => '<span style="font-size:$1px">$2</span>',
-  'COLOR\(([^\(\)]*)\):((?:(?!COLOR\([^\)]+\)\:).)*)' => '<span style="color:$1"
->$2</span>',
-  'SIZE\(([^\(\)]*)\):((?:(?!SIZE\([^\)]+\)\:).)*)' => '<span class="size$1">$2<
-/span>',
-  '%%%(?!%)((?:(?!%%%).)*)%%%'  => '<ins>$1</ins>',
-  '%%(?!%)((?:(?!%%).)*)%%' => '<del>$1</del>',
-  "'''(?!')((?:(?!''').)*)'''"  => '<em>$1</em>',
-  "''(?!')((?:(?!'').)*)''" => '<strong>$1</strong>',
-);
-$foot_explain = array();	// Footnotes
-$related      = array();	// Related pages
-$head_tags    = array();	// XHTML tags in <head></head>
-
-define('WIKI_NAME','(?:[A-Z][a-z]+){2,}(?!\w)');
 // 脚注のアンカーに埋め込む本文の最大長
 define('PKWK_FOOTNOTE_TITLE_MAX', 16); // Characters
 
@@ -76,6 +54,32 @@ if (! defined('PKWK_DISABLE_INLINE_IMAGE_FROM_URI'))
 //   #memo(This makes '#memo(foo)' to this)
 define('PKWKEXP_DISABLE_MULTILINE_PLUGIN_HACK', TRUE); // TRUE = Disabled
 
+//変更の必要がなさそうな物
+if (!defined('INTERWIKI'))
+  define('INTERWIKI','InterWikiName');//$interwiki;
+define('WIKI_NAME','(?:[A-Z][a-z]+){2,}(?!\w)');
+define('PREFORMAT_LTRIM',TRUE); //$preformat_ltrim = TRUE;
+define('HR','<hr class="full_hr">');//$hr
+define('SYMBOL_ANCHOR','&dagger;');//$symbok_anchor
+define('NOTE_PATTERN','/\(\(((?:(?>(?:(?!\(\()(?!\)\)(?:[^\)]|$)).)+)|(?R))*)\)\)/ex');//$NotePattern
+define('BRACKET_NAME','(?!\s):?[^\r\n\t\f\[\]<>#&":]+:?(?<!\s)');//$BracketName
+define('LIST_PAD_STR',' class="list%d"');//$list_pad_str
 define('PKWK_ENCODING_HINT', isset($_LANG['encode_hint'][LANG]) ? $_LANG['encode_hint'][LANG] : '');
+$line_rules = array(
+  'COLOR\(([^\(\)]*)\){([^}]*)}'  => '<span style="color:$1">$2</span>',
+  'SIZE\(([^\(\)]*)\){([^}]*)}' => '<span style="font-size:$1px">$2</span>',
+  'COLOR\(([^\(\)]*)\):((?:(?!COLOR\([^\)]+\)\:).)*)' => '<span style="color:$1"
+>$2</span>',
+  'SIZE\(([^\(\)]*)\):((?:(?!SIZE\([^\)]+\)\:).)*)' => '<span class="size$1">$2<
+/span>',
+  '%%%(?!%)((?:(?!%%%).)*)%%%'  => '<ins>$1</ins>',
+  '%%(?!%)((?:(?!%%).)*)%%' => '<del>$1</del>',
+  "'''(?!')((?:(?!''').)*)'''"  => '<em>$1</em>',
+  "''(?!')((?:(?!'').)*)''" => '<strong>$1</strong>',
+);
+//グローバル変数の初期化
+$foot_explain = array();	// Footnotes
+$related      = array();	// Related pages
+$head_tags    = array();	// XHTML tags in <head></head>
 ?>
 
