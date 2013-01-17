@@ -4,7 +4,8 @@
 if (! defined('PLUGIN_DIR')) 
  define('PLUGIN_DIR','./plugin');
 //ページ名を指定しない時に表示されるページの名前
-$defaultpage  = 'FrontPage';
+if (! defined('DEFAULT_PAGE'))
+  define('DEFAULT_PAGE','FrontPage');// $defaultpage  = 'FrontPage';
 //autolinkを有効にする場合にはTRUE
 if( !defined('AUTOLINK')) 
   define('AUTOLINK',TRUE);// $autolink = TRUE;
@@ -17,7 +18,8 @@ define('LINE_BREAK',TRUE);
 if( !defined('NO_WIKINAME')) 
   define('NO_WIKINAME',FALSE);// $nowikiname = FALSE;
 //画面上部へ戻るリンク
-$top = '<div class="jumpmenu"><a href="#toolmenu">&uarr;</a></div>';
+define('TOP','<div class="jumpmenu"><a href="#toolmenu">&uarr;</a></div>');
+//$top = '<div class="jumpmenu"><a href="#toolmenu">&uarr;</a></div>';
 //defaultは0でkeitaiは1だった
 //FALSEだとget_pg_passage呼ぶからTRUEにしとく
 define('LINK_COMPACT',TRUE);//$link_compact = TRUE;

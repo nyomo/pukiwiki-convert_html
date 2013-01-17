@@ -748,15 +748,13 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 // Resolve relative / (Unix-like)absolute path of the page
 function get_fullname($name, $refer)
 {
-	global $defaultpage;
-
 	// 'Here'
 	if ($name == '' || $name == './') return $refer;
 
 	// Absolute path
 	if ($name{0} == '/') {
 		$name = substr($name, 1);
-		return ($name == '') ? $defaultpage : $name;
+		return ($name == '') ? DEFAULT_PAGE : $name;
 	}
 
 	// Relative path from 'Here'
@@ -776,7 +774,7 @@ function get_fullname($name, $refer)
 			array_pop($arrp);
 		}
 		$name = ! empty($arrp) ? join('/', array_merge($arrp, $arrn)) :
-			(! empty($arrn) ? $defaultpage . '/' . join('/', $arrn) : $defaultpage);
+			(! empty($arrn) ? DEFAULT_PAGE . '/' . join('/', $arrn) : DEFAULT_PAGE);
 	}
 
 	return $name;
