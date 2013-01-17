@@ -735,7 +735,7 @@ function make_pagelink($page, $alias = '', $anchor = '', $refer = '', $isautolin
 		if (PKWK_READONLY) return $s_alias; // No dacorations
 
 		$retval = $s_alias . '<a href="' .
-			$script . '?cmd=edit&amp;page=' . $r_page . $r_refer . '">' .
+			$script . '?mode=edit&amp;page=' . $r_page . $r_refer . '">' .
 			SYMBOL_NOEXISTS . '</a>';
 		if (LINK_COMPACT) {
 			return $retval;
