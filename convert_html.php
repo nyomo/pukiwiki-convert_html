@@ -1,10 +1,11 @@
 <?php
-require_once(__DIR__ . "conf.php");
-require_once(__DIR__ . "func.php");
-require_once(__DIR__ . "html.php");
-require_once(__DIR__ . "plugin.php");
-require_once(__DIR__ . "make_link.php");
-require_once(__DIR__ . "convert_html.php");
+require_once(__DIR__ . "/conf.php");
+require_once(__DIR__ . "/page.php");
+require_once(__DIR__ . "/func.php");
+require_once(__DIR__ . "/html.php");
+require_once(__DIR__ . "/plugin.php");
+require_once(__DIR__ . "/make_link.php");
+require_once(__DIR__ . "/convert_html.php");
 // PukiWiki - Yet another WikiWikiWeb clone
 // $Id: convert_html.php,v 1.18 2006/05/13 07:29:58 henoheno Exp $
 // Copyright (C)
