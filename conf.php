@@ -1,6 +1,7 @@
 <?php
 //convert_htmlに必要なグローバル変数と定数
 //convert_html用の設定
+if (! defined('PLUGIN_DIR')) define('PLUGIN_DIR','./plugin');
 //ページ名を指定しない時に表示されるページの名前
 $defaultpage  = 'FrontPage';
 //autolinkを有効にする場合にはTRUE
