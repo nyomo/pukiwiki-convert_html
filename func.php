@@ -7,12 +7,16 @@
 // License: GPL v2 or (at your option) any later version
 //
 // General functions
+require_once(__DIR__.'/file.php');
+require_once(__DIR__.'/page.php');
 
 // If the page exists
 function is_page($page, $clearcache = FALSE)
 {
+//var_dump(get_included_files());exit();
 	if ($clearcache) clearstatcache();
-	return file_exists(get_filename($page));
+  //file_existsを置き換え
+	return page_exists($page);
 }
 
 // Encode page-name
