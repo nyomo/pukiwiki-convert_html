@@ -15,48 +15,10 @@ define('PKWK_MAXSHOW_CACHE', 'recent.dat');
 // AutoLink
 define('PKWK_AUTOLINK_REGEX_CACHE', 'autolink.dat');
 
-// Get source(wiki text) data of the page
-function get_source($page = NULL, $lock = TRUE, $join = FALSE)
-{
-	$result = $join ? '' : array();
-
-	if (is_page($page)) {
-		$path  = get_filename($page);
-
-		if ($lock) {
-			$fp = @fopen($path, 'r');
-			if ($fp == FALSE) return $result;
-			flock($fp, LOCK_SH);
-		}
-
-		if ($join) {
-			// Returns a value
-			$result = str_replace("\r", '', fread($fp, filesize($path)));
-		} else {
-			// Returns an array
-			// Removing line-feeds: Because file() doesn't remove them.
-			$result = str_replace("\r", '', file($path));
-		}
-
-		if ($lock) {
-			flock($fp, LOCK_UN);
-			@fclose($fp);
-		}
-	}
-
-	return $result;
-}
-
 // Get last-modified filetime of the page
 function get_filetime($page)
 {
 	return is_page($page) ? filemtime(get_filename($page)) - LOCALZONE : 0;
-}
-
-// Get physical file name of the page
-function get_filename($page)
-{
-	return DATA_DIR . encode($page) . '.txt';
 }
 
 // Put a data(wiki text) into a physical file(diff, backup, text)
