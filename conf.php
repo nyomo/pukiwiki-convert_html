@@ -2,7 +2,7 @@
 //convert_htmlに必要なグローバル変数と定数
 //convert_html用の設定
 if (! defined('PLUGIN_DIR')) 
- define('PLUGIN_DIR','./plugin');
+ define('PLUGIN_DIR',__DIR__.'/plugin/');
 //ページ名を指定しない時に表示されるページの名前
 if (! defined('DEFAULT_PAGE'))
   define('DEFAULT_PAGE','FrontPage');// $defaultpage  = 'FrontPage';
