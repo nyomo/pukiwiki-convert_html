@@ -7,7 +7,7 @@
 // License: GPL v2 or (at your option) any later version
 //
 // File related functions
-require_once('page.class.php');
+//require_once('page.class.php');
 // Get source(wiki text) data of the page
 function check_readable($page, $auth_flag = TRUE, $exit_flag = TRUE)
 {

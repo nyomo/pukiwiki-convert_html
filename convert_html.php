@@ -4,6 +4,7 @@ require_once(__DIR__ . "/func.php");
 require_once(__DIR__ . "/html.php");
 require_once(__DIR__ . "/make_link.php");
 require_once(__DIR__ . "/plugin.php");
+require_once(__DIR__ . "/page.class.php");
 require_once(__DIR__ . "/plugin_require.php");
 // PukiWiki - Yet another WikiWikiWeb clone
 // $Id: convert_html.php,v 1.18 2006/05/13 07:29:58 henoheno Exp $

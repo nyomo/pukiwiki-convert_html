@@ -7,7 +7,6 @@
 // License: GPL v2 or (at your option) any later version
 //
 // General functions
-require_once(__DIR__.'/file.php');
 require_once(__DIR__.'/page.php');
 
 // If the page exists
