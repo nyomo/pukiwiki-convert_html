@@ -84,4 +84,3 @@ $foot_explain = array();	// Footnotes
 $related      = array();	// Related pages
 $head_tags    = array();	// XHTML tags in <head></head>
 ?>
-
